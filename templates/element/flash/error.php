@@ -8,4 +8,7 @@ if (!isset($params['escape']) || $params['escape'] !== false) {
     $message = h($message);
 }
 ?>
-<div class="message error" onclick="this.classList.add('hidden');"><?= $message ?></div>
+
+<?php if ($message !== 'You are not authorized to access that location.'): ?>
+<div class="alert alert-danger mb-xl-0" onclick="this.classList.add('hidden');"><?= $message ?></div>
+<?php endif; ?>
