@@ -79,15 +79,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-sm-6 header-item">
-                                                <?= $this->Html->link(__('<i class=" ri-shopping-cart-2-fill align-bottom me-1"></i> Adicionar ao Carrinho'),
-                                                    [
-                                                        'controller' => 'carts',
-                                                        'action' => 'add', $product->id,
-                                                    '?' => ['redirect' => 'products/view/'.$product->id]],
-                                                    [
-                                                        'class' => 'btn btn-success w-100',
-                                                        'escape' => false
-                                                    ]) ?>
+                                                <button onclick="addToCart(<?=$product->id?>,'<?=$product->name?>',1,<?=$product->price?>, 'products/view/<?=$product->id?>')" class="btn btn-success w-100"><i class=" ri-shopping-cart-2-fill align-bottom me-1"></i> Adicionar ao Carrinho</button>
                                             </div>
                                             <div class="col-lg-3 col-sm-6 header-item">
                                                 <?= $this->Html->link(__('<i class="ri-shopping-bag-fill align-bottom me-1"></i> Comprar'),

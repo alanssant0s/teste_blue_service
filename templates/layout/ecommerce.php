@@ -53,6 +53,7 @@ $action = View::getRequest()->getAttribute('params')['action'];
 
 <!-- App js -->
 <script src="/js/app.js"></script>
+<script src="/js/custom.js"></script>
 </body>
 
 </html>

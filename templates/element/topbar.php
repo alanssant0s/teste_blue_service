@@ -83,11 +83,11 @@
                                                             <a id="cart_product_<?=$cart['product_id']?>" href="/products/view/<?=$cart['product_id']?>" class="text-reset"><?=$cart['product']['name']?></a>
                                                         </h6>
                                                         <p  class="mb-0 fs-12 text-muted">
-                                                            Quantidade: <span id="cart_qtd_<?=$cart['product_id']?>"><?=$cart['qtd']?></span> x <span id="cart_price_<?=$cart['product_id']?>"><?= number_format($cart['price'],2,',', '.')?></span>
+                                                            Quantidade: <span id="cart_qtd_<?=$cart['product_id']?>"><?=$cart['qtd']?></span> x <span id="cart_price_<?=$cart['product_id']?>"><?= number_format($cart['price'],2,',', ' ')?></span>
                                                         </p>
                                                     </div>
                                                     <div class="px-2">
-                                                        <h5 class="m-0 fw-normal">R$<span id="cart_total_<?=$cart['product_id']?>" class="cart-item-price"><?= number_format($cart['total'],2,',', '.')?></span></h5>
+                                                        <h5 class="m-0 fw-normal">R$<span id="cart_total_<?=$cart['product_id']?>" class="cart-item-price"><?= number_format($cart['total'],2,',', ' ')?></span></h5>
                                                     </div>
                                                     <div class="ps-2">
                                                         <button type="button"
@@ -107,7 +107,7 @@
                                     <div class="d-flex justify-content-between align-items-center pb-3">
                                         <h5 class="m-0 text-muted">Total:</h5>
                                         <div class="px-2">
-                                            <h5 class="m-0">R$ <span id="cart_total"><?=number_format($total,2,',', '.')?></span></h5>
+                                            <h5 class="m-0">R$ <span id="cart_total"><?=number_format($total,2,',', ' ')?></span></h5>
                                         </div>
                                     </div>
                                     <a href="/carts/finish" class="btn btn-success text-center w-100">
