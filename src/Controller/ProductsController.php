@@ -123,6 +123,26 @@ class ProductsController extends AppController
             $data = $this->setProductRelationData($data);
             $product = $this->Products->patchEntity($product, $data);
 
+            if(isset($data['imagem_upload'])) {
+                $file_name = $data['imagem_upload']->getClientFilename();
+
+                if ($file_name) {
+                    if (!is_dir(WWW_ROOT . 'product_images'))
+                        mkdir(WWW_ROOT . 'product_images', 0775);
+
+                    if (!is_dir(WWW_ROOT . 'product_images' . DS . $product->id))
+                        mkdir(WWW_ROOT . 'product_images' . DS . $product->id, 0775);
+
+                    $targetPath = WWW_ROOT . 'product_images' . DS . $product->id . DS . $file_name;
+
+
+                    $data['imagem_upload']->moveTo($targetPath);
+
+
+                    $product->imagem = DS . 'product_images' . DS . $product->id . DS . $file_name;
+                }
+            }
+
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
 

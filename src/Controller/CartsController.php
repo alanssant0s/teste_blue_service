@@ -42,34 +42,7 @@ class CartsController extends AppController
         $this->set(compact('cart'));
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add($product_id)
-    {
-        $cart = $this->Carts->find()->where(['product_id' => $product_id, 'user_id' => $this->getUserId()])->first();
-        if(!$cart) {//Verifico se já existe um desses adicionado ao carrinho do cliente, se não exisistir eu crio;
-            $product = $this->Carts->Products->get($product_id);
-            $cart = $this->Carts->newEmptyEntity();
-            $cart->product_id = $product_id;
-            $cart->user_id = $this->getUserId();
-            $cart->price = $product->price;
-            $cart->qtd = 1;
-            $cart->total = $cart->price;
-        }else{
-            $cart->qtd++;
-            $cart->total += $cart->price;
-        }
-        if ($this->Carts->save($cart)) {
-            $this->Flash->success(__('Produto adicionado ao carrinho.'));
-        }else {
-            $this->Flash->error(__('Erro ao adicionar produto ao carrinho.'));
-        }
 
-        return $this->redirect( $this->getRequest()->getQuery('redirect', '/'));
-    }
 
     /**
      * Edit method
@@ -123,6 +96,35 @@ class CartsController extends AppController
     }
 
     /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function add($product_id)
+    {
+        $cart = $this->Carts->find()->where(['product_id' => $product_id, 'user_id' => $this->getUserId()])->first();
+        if(!$cart) {//Verifico se já existe um desses adicionado ao carrinho do cliente, se não exisistir eu crio;
+            $product = $this->Carts->Products->get($product_id);
+            $cart = $this->Carts->newEmptyEntity();
+            $cart->product_id = $product_id;
+            $cart->user_id = $this->getUserId();
+            $cart->price = $product->price;
+            $cart->qtd = 1;
+            $cart->total = $cart->price;
+        }else{
+            $cart->qtd++;
+            $cart->total += $cart->price;
+        }
+        if ($this->Carts->save($cart)) {
+            $this->Flash->success(__('Produto adicionado ao carrinho.'));
+        }else {
+            $this->Flash->error(__('Erro ao adicionar produto ao carrinho.'));
+        }
+        exit;
+        return $this->redirect( $this->getRequest()->getQuery('redirect', '/'));
+    }
+
+    /**
      * Remove method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
@@ -130,25 +132,27 @@ class CartsController extends AppController
     public function remove($product_id, $all = false) // Flag all por padrão é false
     {
         $cart = $this->Carts->find()->where(['product_id' => $product_id, 'user_id' => $this->getUserId()])->first();
-        if(!$cart) {
-            if($cart->qtd > 1 || $all == true) { //Remove item totalmente do carrinho caso quantidade seja iqual a 1 ou flash de all seja true
+        if($cart) {
+            if($cart->qtd <= 1 || $all == true){
+                if ($this->Carts->delete($cart)) {
+                    echo __('Produto removido do carrinho.');
+                } else {
+                    echo __('Erro ao remover item do carrinho');
+                }
+            } else { //Remove item totalmente do carrinho caso quantidade seja iqual a 1 ou flash de all seja true
                 $cart->qtd--;
                 $cart->total -= $cart->price;
                 if ($this->Carts->save($cart)) {
-                    $this->Flash->success(__('Item do produto removido do carrinho.'));
+                    echo __('Item do produto removido do carrinho.');
                 }else {
-                    $this->Flash->error(__('Erro ao remover item do carrinho.'));
-                }
-            }else{
-                if ($this->Carts->delete($cart)) {
-                    $this->Flash->success(__('Produto removido do carrinho.'));
-                } else {
-                    $this->Flash->error(__('Erro ao remover item do carrinho'));
+                    echo  __('Erro ao remover item do carrinho.');
                 }
             }
         }else{
-            $this->Flash->error(__('Esse produto não está no carrinho!'));
+            echo __('Esse produto não está no carrinho!');
         }
+
+        exit;
 
         return $this->redirect( $this->getRequest()->getQuery('redirect', '/'));
     }

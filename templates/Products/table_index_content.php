@@ -6,7 +6,11 @@
       <span>
          <div class="d-flex align-items-center">
             <div class="flex-shrink-0 me-3">
-               <div class="avatar-sm bg-light rounded p-1"><img src="assets/images/products/img-1.png" alt="" class="img-fluid d-block"></div>
+               <div class="avatar-sm bg-light rounded p-1">
+                   <?php if(isset($model->imagem)):?>
+                        <img src="<?=$model->imagem?>" alt="" class="img-fluid d-block">
+                   <?php endif;?>
+               </div>
             </div>
             <div class="flex-grow-1">
                <h5 class="fs-14 mb-1"><a href="apps-ecommerce-product-details.html" class="text-dark"><?=$model->name?></a></h5>

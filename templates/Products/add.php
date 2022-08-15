@@ -9,6 +9,6 @@
 
         <?= $this->element('page-title', array('controller_title' => 'Produtos', 'action_title' => 'Editar Produto', )) ?>
 
-        <?= $this->element('CRUD/form', array('action' => 'Cadastrar', 'model_name' => 'Produto', 'model' => $product)) ?>
+        <?= $this->element('CRUD/form', array('action' => 'Cadastrar', 'model_name' => 'Produto', 'model' => $product, 'upload' => true)) ?>
     </div>
 </div>

@@ -41,9 +41,8 @@
                                 id="page-header-cart-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                                 aria-haspopup="true" aria-expanded="false">
                             <i class='bx bx-shopping-bag fs-22'></i>
-                            <?php if(isset($logged_user['carts']) && sizeof($logged_user['carts'])):?>
-                                <span id="cart_total_itens_1" class="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-info"><?=sizeof($logged_user['carts'])?></span>
-                            <?php endif;?>
+
+                            <p id="cart_total_itens_3" class="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-info"><?=sizeof($logged_user['carts'])?></p>
                         </button>
                         <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end p-0 dropdown-menu-cart"
                              aria-labelledby="page-header-cart-dropdown">
@@ -53,14 +52,14 @@
                                         <h6 class="m-0 fs-16 fw-semibold"> Meu Carrinho</h6>
                                     </div>
                                     <div class="col-auto">
-                                    <span class="badge badge-soft-warning fs-13"><span id="cart_total_itens_2" class="cartitem-badge"><?=sizeof($logged_user['carts'])?></span>
+                                        <span class="badge badge-soft-warning fs-13"><span id="cart_total_itens_4" class="cartitem-badge"><?=sizeof($logged_user['carts'])?></span>
                                         itens</span>
                                     </div>
                                 </div>
                             </div>
                             <div data-simplebar style="max-height: 300px;">
                                 <div id="cart" class="p-2">
-                                    <?php if(isset($logged_user['carts']) && sizeof($logged_user['carts']) == 0):?>
+                                    <?php $total = 0; if(isset($logged_user['carts']) && sizeof($logged_user['carts']) == 0):?>
                                         <div class="text-center empty-cart">
                                             <div class="avatar-md mx-auto my-3">
                                                 <div class="avatar-title bg-soft-info text-info fs-36 rounded-circle">
@@ -71,8 +70,8 @@
                                             <a href="/" class="btn btn-success w-md mb-3">Comprar</a>
                                         </div>
                                     <?php else:?>
-                                        <?php $total = 0; foreach($logged_user['carts'] as $cart): $total+=$cart['total'];?>
-                                            <div id="cart_<?=$cart['product_id']?>" class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
+                                        <?php foreach($logged_user['carts'] as $cart): $total+=$cart['total'];?>
+                                            <div id="cart_<?=$cart['product_id']?>" class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2 item_product_cart">
                                                 <div class="d-flex align-items-center">
                                                     <?php if(isset($cart['product']['imagem'])):?>
                                                         <img src="<?=$cart['product']['imagem']?>"
@@ -90,9 +89,7 @@
                                                         <h5 class="m-0 fw-normal">R$<span id="cart_total_<?=$cart['product_id']?>" class="cart-item-price"><?= number_format($cart['total'],2,',', ' ')?></span></h5>
                                                     </div>
                                                     <div class="ps-2">
-                                                        <button type="button"
-                                                                class="btn btn-icon btn-sm btn-ghost-secondary"><i
-                                                                    class="ri-close-fill fs-16"></i></button>
+                                                        <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" onclick="addRemoveCart(<?=$cart['product_id']?>,<?=$cart['price']?>)"><i class="ri-close-fill fs-16"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,7 +97,6 @@
                                     <?php endif;?>
                                 </div>
                             </div>
-                            <?php if(isset($total)):?>
                             <div class="p-3 border-bottom-0 border-start-0 border-end-0 border-dashed border"
                                  id="checkout-elem">
 
@@ -114,7 +110,6 @@
                                         Finalizar compra
                                     </a>
                             </div>
-                            <?php endif;?>
                         </div>
                     </div>
                     <div class="dropdown ms-sm-3 header-item topbar-user">

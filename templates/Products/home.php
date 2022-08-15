@@ -56,7 +56,9 @@
                     <div class="col list-element">
                         <div class="card explore-box card-animate">
                             <div class="explore-place-bid-img">
-                                <img src="assets/images/nft/gif/img-3.gif" alt="" class="card-img-top explore-img">
+                                <?php if(isset($product->imagem)):?>
+                                    <img src="<?=$product->imagem?>" alt="" class="card-img-top explore-img">
+                                <?php endif;?>
                                 <div class="bg-overlay"></div>
                                 <div class="place-bid-btn my-2">
                                     <?= $this->Html->link(__('<i class="ri-eye-fill align-bottom me-1"></i> Ver Detallhes'),
@@ -65,7 +67,7 @@
                                             'class' => 'btn btn-primary',
                                             'escape' => false
                                         ]) ?>
-                                    <button onclick="addToCart(<?=$product->id?>,'<?=$product->name?>',1,<?=$product->price?>, 'products/home/')" class="btn btn-success mt-2"><i class=" ri-shopping-cart-2-fill align-bottom me-1"></i> Adicionar ao Carrinho</button>
+                                    <button onclick="addToCart(<?=$product->id?>,'<?=$product->name?>','<?=$product->imagem?>',1,<?=$product->price?>, 'products/home/')" class="btn btn-success mt-2"><i class=" ri-shopping-cart-2-fill align-bottom me-1"></i> Adicionar ao Carrinho</button>
                                 </div>
                             </div>
                             <div class="card-body">

@@ -19,6 +19,9 @@
             <?=$this->Form->select('features', $features, ['id' => 'feature_id', 'label' => 'Características*', 'require', 'style' => 'width: 100%;', 'multiple'=>'multiple', 'class' => 'select_sys_ecommerce']); ?>
         </div>
         <div class="col-xl-12"><?=$this->Form->control('description',['label' => 'Descrição*', 'required']); ?></div>
+        <div class="col-xl-12">
+            <?=$this->Form->control('imagem_upload', ['type' => 'file', 'label' => 'Foto do Produto', 'accept'=>'image/*']);?>
+        </div>
     </div>
 </fieldset>
 

@@ -28,7 +28,7 @@ $controller = \Cake\View\View::getRequest()->getAttribute('params')['controller'
             <div class="card-body border-bottom-dashed border-bottom">
 
                 <div class="users form content">
-                    <?= $this->Form->create($model) ?>
+                    <?= $this->Form->create($model,['type' => (isset($upload) && $upload) ? 'file' : '']) ?>
                     <?= $this->element('../'.$controller.'/form') ?>
                     <?= $this->Form->button(__($action)) ?>
                     <?= $this->Form->end() ?>
