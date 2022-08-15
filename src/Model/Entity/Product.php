@@ -9,6 +9,8 @@ use Cake\ORM\Entity;
  * Product Entity
  *
  * @property int $id
+ * @property int $category_id
+ * @property int $feature_id
  * @property string $name
  * @property string $description
  * @property string $imagem
@@ -18,7 +20,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $deleted
  *
  * @property \App\Model\Entity\ProductCategory[] $product_categories
- * @property \App\Model\Entity\Order[] $order
+ * @property \App\Model\Entity\ProductFeature[] $product_features
+ * @property \App\Model\Entity\Request[] $request
  */
 class Product extends Entity
 {
@@ -40,6 +43,9 @@ class Product extends Entity
         'modified' => true,
         'deleted' => true,
         'product_categories' => true,
-        'order' => true,
+        'product_features' => true,
+        'request' => true,
+        'category_id' => true,
+        'feature_id' => true,
     ];
 }

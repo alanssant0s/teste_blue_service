@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\OrderProductsTable;
+use App\Model\Table\RequestProductsTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class OrderProductsTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\OrderProductsTable
+     * @var \App\Model\Table\RequestProductsTable
      */
     protected $OrderProducts;
 
@@ -37,7 +37,7 @@ class OrderProductsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('OrderProducts') ? [] : ['className' => OrderProductsTable::class];
+        $config = $this->getTableLocator()->exists('OrderProducts') ? [] : ['className' => RequestProductsTable::class];
         $this->OrderProducts = $this->getTableLocator()->get('OrderProducts', $config);
     }
 
@@ -57,7 +57,7 @@ class OrderProductsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\OrderProductsTable::validationDefault()
+     * @uses \App\Model\Table\RequestProductsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -68,7 +68,7 @@ class OrderProductsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\OrderProductsTable::buildRules()
+     * @uses \App\Model\Table\RequestProductsTable::buildRules()
      */
     public function testBuildRules(): void
     {

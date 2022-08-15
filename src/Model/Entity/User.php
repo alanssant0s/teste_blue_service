@@ -6,6 +6,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 
+
 /**
  * User Entity
  *
@@ -18,12 +19,17 @@ use Authentication\PasswordHasher\DefaultPasswordHasher;
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property \Cake\I18n\FrozenTime|null $deleted
  *
- * @property \App\Model\Entity\Order[] $order
+ * @property \App\Model\Entity\Request[] $requests
+ * @property \App\Model\Entity\Cart[] $carts
  */
 class User extends Entity
 {
 
     public static $_ROLES = [1 => 'Adm', 5 => 'Costumer'];
+
+    public static $_ROLES_COLORS = [1 => 'success', 5 => 'info'];
+
+    public static $_LAST_ADMIN = 4;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -42,7 +48,17 @@ class User extends Entity
         'created' => true,
         'modified' => true,
         'deleted' => true,
-        'order' => true,
+        'requests' => true,
+        'carts' => true,
+    ];
+
+    /**
+     * Fields that are excluded from JSON versions of the entity.
+     *
+     * @var array
+     */
+    protected $_hidden = [
+        'password',
     ];
 
 

@@ -1,14 +1,26 @@
+<?php
+use Cake\View\View;
+?>
+
+
 <?= $this->element('main') ?>
+
+<?php
+$controller = View::getRequest()->getAttribute('params')['controller'];
+$action = View::getRequest()->getAttribute('params')['action'];
+?>
 
 <head>
 
-    <?= $this->element('title-meta', array('title' => 'Dashboard')) ?>
+    <?= $this->element('title-meta', array('title' => 'SYS Ecomerce - '. $controller)) ?>
 
     <!-- jsvectormap css -->
     <link href="/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
 
     <!--Swiper slider css-->
     <link href="/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <?= $this->element('head-css') ?>
 
@@ -26,13 +38,7 @@
     <!-- ============================================================== -->
     <div class="main-content">
 
-        <div class="page-content">
-            <div class="container-fluid">
-
-                <?= $this->element('page-title', array('pagetitle' => 'Dashboards', 'title' => 'Dashboard')) ?>
-
-                <?= $this->Flash->render() ?>
-                <?= $this->fetch('content') ?>
+        <?= $this->fetch('content') ?>
 
         <?= $this->element('footer') ?>
     </div>
@@ -40,8 +46,6 @@
 
 </div>
 <!-- END layout-wrapper -->
-
-<?= $this->element('customizer') ?>
 
 <?= $this->element('vendor-scripts') ?>
 
@@ -57,6 +61,8 @@
 
 <!-- Dashboard init -->
 <script src="/js/pages/dashboard-ecommerce.init.js"></script>
+
+<?php echo $this->fetch('scriptBottom'); ?>
 
 <!-- App js -->
 <script src="/js/app.js"></script>

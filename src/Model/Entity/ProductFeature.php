@@ -27,6 +27,8 @@ class ProductFeature extends Entity
      */
     protected $_accessible = [
         'product' => true,
+        'product_id' => true,
         'feature' => true,
+        'feature_id' => true,
     ];
 }

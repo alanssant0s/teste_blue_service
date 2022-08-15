@@ -41,11 +41,11 @@ class ProductFeaturesTable extends Table
         parent::initialize($config);
 
         $this->setTable('product_features');
-        $this->setDisplayField(['producty_id', 'feature_id']);
-        $this->setPrimaryKey(['producty_id', 'feature_id']);
+        $this->setDisplayField(['product_id', 'feature_id']);
+        $this->setPrimaryKey(['product_id', 'feature_id']);
 
         $this->belongsTo('Products', [
-            'foreignKey' => 'producty_id',
+            'foreignKey' => 'product_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Features', [

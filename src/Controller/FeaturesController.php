@@ -11,6 +11,12 @@ namespace App\Controller;
  */
 class FeaturesController extends AppController
 {
+
+//    public $paginate = [
+//        'limit' => 1,
+//        'order' => [
+//        ]
+//    ];
     /**
      * Index method
      *

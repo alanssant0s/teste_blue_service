@@ -11,6 +11,46 @@ namespace App\Controller;
  */
 class ProductsController extends AppController
 {
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // Configure the login action to not require authentication, preventing
+        // the infinite redirect loop issue
+        $this->Authentication->addUnauthenticatedActions(['home', 'view']);
+    }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function home()
+    {
+        $this->viewBuilder()->setLayout('ecommerce');
+        $categories = $this->Products->ProductCategories->Categories->find('list');
+        $features = $this->Products->ProductFeatures->Features->find('list');
+
+        $products = $this->Products->find()->contain(['ProductCategories.Categories']);
+
+        $query = $this->request->getQuery();
+        $q = $this->Products->newEmptyEntity();
+        if(sizeof($query) > 0){
+
+            $q = $this->Products->patchEntity($q, $query);
+            if($q->category_id)
+                $products = $products->andWhere(['ProductCategories.category_id' => $q->category_id])->matching('ProductCategories');
+            if($q->feature_id)
+                $products = $products->andWhere(['ProductFeatures.feature_id' => $q->feature_id])->matching('ProductFeatures');
+            if($q->name)
+                $products = $products->andWhere(['name LIKE' => "%$q->name%"]);
+
+        }
+
+        $products = $this->paginate($products);
+        $this->set(compact('products', 'categories', 'features', 'q'));
+    }
+
     /**
      * Index method
      *
@@ -32,8 +72,9 @@ class ProductsController extends AppController
      */
     public function view($id = null)
     {
+        $this->viewBuilder()->setLayout('ecommerce');
         $product = $this->Products->get($id, [
-            'contain' => ['Order', 'ProductCategories'],
+            'contain' => ['ProductCategories.Categories', 'ProductFeatures.Features'],
         ]);
 
         $this->set(compact('product'));
@@ -48,7 +89,10 @@ class ProductsController extends AppController
     {
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
-            $product = $this->Products->patchEntity($product, $this->request->getData());
+            $data = $this->request->getData();
+            $data = $this->setProductRelationData($data);
+            $product = $this->Products->patchEntity($product, $data);
+
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
 
@@ -56,8 +100,10 @@ class ProductsController extends AppController
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
-        $order = $this->Products->Order->find('list', ['limit' => 200])->all();
-        $this->set(compact('product', 'order'));
+        $order = $this->Products->Requests->find('list', ['limit' => 200])->all();
+        $categories = $this->Products->ProductCategories->Categories->find('list', ['limit' => 200])->all();
+        $features = $this->Products->ProductFeatures->Features->find('list', ['limit' => 200])->all();
+        $this->set(compact('product', 'order', 'categories', 'features'));
     }
 
     /**
@@ -70,10 +116,13 @@ class ProductsController extends AppController
     public function edit($id = null)
     {
         $product = $this->Products->get($id, [
-            'contain' => ['Order'],
+            'contain' => ['Requests', 'ProductCategories.Categories', 'ProductFeatures.Features'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $product = $this->Products->patchEntity($product, $this->request->getData());
+            $data = $this->request->getData();
+            $data = $this->setProductRelationData($data);
+            $product = $this->Products->patchEntity($product, $data);
+
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
 
@@ -81,8 +130,10 @@ class ProductsController extends AppController
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
-        $order = $this->Products->Order->find('list', ['limit' => 200])->all();
-        $this->set(compact('product', 'order'));
+        $order = $this->Products->Requests->find('list', ['limit' => 200])->all();
+        $categories = $this->Products->ProductCategories->Categories->find('list', ['limit' => 200])->all();
+        $features = $this->Products->ProductFeatures->Features->find('list', ['limit' => 200])->all();
+        $this->set(compact('product', 'order', 'categories', 'features'));
     }
 
     /**
@@ -103,5 +154,30 @@ class ProductsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Transforma o array gerado pelo Select2, no array reconhecido pelo CAKE
+     * @param $data
+     * @return array
+     */
+    private function setProductRelationData($data)
+    {
+        if (isset($data['categories'])) { //Transforma o array gerado pelo Select2, no array reconhecido pelo CAKE
+            $categories = $data['categories'];
+            $data['product_categories'] = [];
+            if ($categories != '')
+                foreach ($categories as $category)
+                    $data['product_categories'][] = ['category_id' => $category];
+        }
+
+        if (isset($data['features'])) { //Transforma o array gerado pelo Select2, no array reconhecido pelo CAKE
+            $features = $data['features'];
+            $data['product_features'] = [];
+            if ($features != '')
+                foreach ($features as $feature)
+                    $data['product_features'][] = ['feature_id' => $feature];
+        }
+        return $data;
     }
 }

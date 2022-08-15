@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use SoftDelete\Model\Table\SoftDeleteTrait;
 
 /**
  * Features Model
@@ -31,6 +32,7 @@ use Cake\Validation\Validator;
  */
 class FeaturesTable extends Table
 {
+    use SoftDeleteTrait;
     /**
      * Initialize method
      *

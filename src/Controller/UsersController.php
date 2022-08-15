@@ -17,7 +17,7 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         // Configure the login action to not require authentication, preventing
         // the infinite redirect loop issue
-        $this->Authentication->addUnauthenticatedActions(['login', 'add']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'add', 'edit']);
     }
 
     public function login()
@@ -122,6 +122,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
+        unset($user->password);
         $this->set(compact('user'));
     }
 

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -52,5 +53,24 @@ class AppController extends Controller
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function beforeRender(EventInterface  $event)
+    {
+
+        if($this->request->getSession()->read('Auth') && $this->request->getSession()->read('Auth')['id']) {
+
+            $user = $this->fetchTable('Users')->find()->where(['Users.id' => $this->request->getSession()->read('Auth')['id']])
+                ->contain([
+                    'Carts.Products'
+                ])->first()
+            ;
+
+            $this->set('logged_user', $user);
+        }
+    }
+
+    protected function getUserId(){
+        return $this->getRequest()->getSession()->read('Auth')['id'];
     }
 }

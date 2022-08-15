@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use SoftDelete\Model\Table\SoftDeleteTrait;
 
 /**
  * Products Model
@@ -32,6 +33,7 @@ use Cake\Validation\Validator;
  */
 class ProductsTable extends Table
 {
+    use SoftDeleteTrait;
     /**
      * Initialize method
      *
@@ -51,10 +53,18 @@ class ProductsTable extends Table
         $this->hasMany('ProductCategories', [
             'foreignKey' => 'product_id',
         ]);
-        $this->belongsToMany('Order', [
+        $this->hasMany('ProductFeatures', [
             'foreignKey' => 'product_id',
-            'targetForeignKey' => 'order_id',
-            'joinTable' => 'order_products',
+        ]);
+
+        $this->hasMany('Carts', [
+            'foreignKey' => 'product_id',
+        ]);
+
+        $this->belongsToMany('Requests', [
+            'foreignKey' => 'product_id',
+            'targetForeignKey' => 'request_id',
+            'joinTable' => 'request_products',
         ]);
     }
 
@@ -79,9 +89,7 @@ class ProductsTable extends Table
 
         $validator
             ->scalar('imagem')
-            ->maxLength('imagem', 255)
-            ->requirePresence('imagem', 'create')
-            ->notEmptyFile('imagem');
+            ->maxLength('imagem', 255);
 
         $validator
             ->numeric('price')

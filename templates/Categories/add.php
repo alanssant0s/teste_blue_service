@@ -1,28 +1,14 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Category $category
+ * @var \App\Model\Entity\User $user
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Categories'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="categories form content">
-            <?= $this->Form->create($category) ?>
-            <fieldset>
-                <legend><?= __('Add Category') ?></legend>
-                <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('deleted', ['empty' => true]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
+<div class="page-content">
+    <div class="container-fluid">
+
+        <?= $this->element('page-title', array('controller_title' => 'Categorias', 'action_title' => 'Adicionar Categoria', )) ?>
+
+        <?= $this->element('CRUD/form', array('action' => 'Adicionar', 'model_name' => 'Categoria', 'model' => $category)) ?>
     </div>
 </div>

@@ -72,7 +72,7 @@ File: Main Js File
 			}
 		};
 		// Sending the request to the server
-		request.send();
+		// request.send();
 	}
 
 	function pluginData() {
@@ -293,50 +293,50 @@ File: Main Js File
 					toggle: false,
 				});
 				// Hide sibling collapses on `show.bs.collapse`
-				Array.from(collapse).addEventListener("show.bs.collapse", function (e) {
-					e.stopPropagation();
-					var closestCollapse = collapse.parentElement.closest(".collapse");
-					if (closestCollapse) {
-						var siblingCollapses = closestCollapse.querySelectorAll(".collapse");
-						Array.from(siblingCollapses).forEach(function (siblingCollapse) {
-							var siblingCollapseInstance = bootstrap.Collapse.getInstance(siblingCollapse);
-							if (siblingCollapseInstance === collapseInstance) {
-								return;
-							}
-							siblingCollapseInstance.hide();
-						});
-					} else {
-						var getSiblings = function (elem) {
-							// Setup siblings array and get the first sibling
-							var siblings = [];
-							var sibling = elem.parentNode.firstChild;
-							// Loop through each sibling and push to the array
-							while (sibling) {
-								if (sibling.nodeType === 1 && sibling !== elem) {
-									siblings.push(sibling);
-								}
-								sibling = sibling.nextSibling;
-							}
-							return siblings;
-						};
-						var siblings = getSiblings(collapse.parentElement);
-						Array.from(siblings).forEach(function (item) {
-							if (item.childNodes.length > 2)
-								item.firstElementChild.setAttribute("aria-expanded", "false");
-							var ids = item.querySelectorAll("*[id]");
-							Array.from(ids).forEach(function (item1) {
-								item1.classList.remove("show");
-								if (item1.childNodes.length > 2) {
-									var val = item1.querySelectorAll("ul li a");
-									Array.from(val).forEach(function (subitem) {
-										if (subitem.hasAttribute("aria-expanded"))
-											subitem.setAttribute("aria-expanded", "false");
-									});
-								}
-							});
-						});
-					}
-				});
+				// Array.from(collapse).addEventListener("show.bs.collapse", function (e) {
+				// 	e.stopPropagation();
+				// 	var closestCollapse = collapse.parentElement.closest(".collapse");
+				// 	if (closestCollapse) {
+				// 		var siblingCollapses = closestCollapse.querySelectorAll(".collapse");
+				// 		Array.from(siblingCollapses).forEach(function (siblingCollapse) {
+				// 			var siblingCollapseInstance = bootstrap.Collapse.getInstance(siblingCollapse);
+				// 			if (siblingCollapseInstance === collapseInstance) {
+				// 				return;
+				// 			}
+				// 			siblingCollapseInstance.hide();
+				// 		});
+				// 	} else {
+				// 		var getSiblings = function (elem) {
+				// 			// Setup siblings array and get the first sibling
+				// 			var siblings = [];
+				// 			var sibling = elem.parentNode.firstChild;
+				// 			// Loop through each sibling and push to the array
+				// 			while (sibling) {
+				// 				if (sibling.nodeType === 1 && sibling !== elem) {
+				// 					siblings.push(sibling);
+				// 				}
+				// 				sibling = sibling.nextSibling;
+				// 			}
+				// 			return siblings;
+				// 		};
+				// 		var siblings = getSiblings(collapse.parentElement);
+				// 		Array.from(siblings).forEach(function (item) {
+				// 			if (item.childNodes.length > 2)
+				// 				item.firstElementChild.setAttribute("aria-expanded", "false");
+				// 			var ids = item.querySelectorAll("*[id]");
+				// 			Array.from(ids).forEach(function (item1) {
+				// 				item1.classList.remove("show");
+				// 				if (item1.childNodes.length > 2) {
+				// 					var val = item1.querySelectorAll("ul li a");
+				// 					Array.from(val).forEach(function (subitem) {
+				// 						if (subitem.hasAttribute("aria-expanded"))
+				// 							subitem.setAttribute("aria-expanded", "false");
+				// 					});
+				// 				}
+				// 			});
+				// 		});
+				// 	}
+				// });
 
 				// Hide nested collapses on `hide.bs.collapse`
 				collapse.addEventListener("hide.bs.collapse", function (e) {

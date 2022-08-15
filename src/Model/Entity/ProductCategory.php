@@ -27,6 +27,8 @@ class ProductCategory extends Entity
      */
     protected $_accessible = [
         'product' => true,
+        'product_id' => true,
         'category' => true,
+        'category_id' => true,
     ];
 }
