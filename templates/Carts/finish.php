@@ -10,9 +10,9 @@
 
     <div class="page-content">
         <div class="container-fluid">
-
+            <?= $this->Form->create($user) ?>
             <div class="row mb-3">
-                <div class="col-xl-8">
+                <div class="col-xl-7">
                     <div class="row align-items-center gy-3 mb-3">
                         <div class="col-sm">
                             <div>
@@ -23,7 +23,7 @@
                             <a href="/" class="link-primary text-decoration-underline">Continuar comprando</a>
                         </div>
                     </div>
-                    <?= $this->Form->create($user) ?>
+
                     <?php $total = 0; foreach ($user->carts as $i => $cart): $total += $cart->total;?>
                         <div class="card product">
                             <div class="card-body">
@@ -103,15 +103,15 @@
                     <div class="text-end mb-4">
                         <button type="submit" class="btn btn-success btn-label right ms-auto"><i class="ri-arrow-right-line label-icon align-bottom fs-16 ms-2"></i> Finalizar Pedido</button>
                     </div>
-                    <?= $this->Form->end() ?>
+
                 </div>
                 <!-- end col -->
 
-                <div class="col-xl-4">
+                <div class="col-xl-5">
                     <div class="sticky-side-div">
                         <div class="card">
                             <div class="card-header border-bottom-dashed">
-                                <h5 class="card-title mb-0">Order Summary</h5>
+                                <h5 class="card-title mb-0">Resumo do Pedido</h5>
                             </div>
                             <div class="card-body pt-2">
                                 <div class="table-responsive">
@@ -139,11 +139,42 @@
                                 <!-- end table-responsive -->
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div class="card-header border-bottom-dashed">
+                                <h5 class="card-title mb-0">Dados de Entrega</h5>
+                            </div>
+                            <div class="card-body pt-2">
+                                <div class="row">
+                                    <div class="col-md-9 col-sm-12 mb-3">
+                                        <?=$this->Form->control('rua',['label' => 'Rua*', 'required']); ?>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-12 mb-3">
+                                        <?=$this->Form->control('numero',['label' => 'Número*', 'required']); ?>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <?=$this->Form->control('bairro',['label' => 'Bairro*', 'required']); ?>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <?=$this->Form->control('cidade',['label' => 'Cidade*', 'required']); ?>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <?=$this->Form->control('cep',['label' => 'CEP*', 'required']); ?>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <?=$this->Form->control('estado',['label' => 'ESTADO*', 'required', 'options' => \App\Model\Entity\User::$_ESTADOS]); ?>
+                                    </div>
+                                </div>
+                                <!-- end table-responsive -->
+                            </div>
+                        </div>
                     </div>
                     <!-- end stickey -->
 
                 </div>
             </div>
+            <?= $this->Form->end() ?>
             <!-- end row -->
         </div>
         <!-- container-fluid -->

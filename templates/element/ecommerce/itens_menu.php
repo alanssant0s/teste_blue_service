@@ -15,18 +15,26 @@ $action = View::getRequest()->getAttribute('params')['action'];
         </a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link menu-link <?= ($controller == 'Requests') ? 'active' : ''?>" href="<?php echo $this->Url->build("/requests")?>" role="button">
-            <i class="ri-shopping-bag-line"></i> <span data-key="t-dashboards">Minhas Compras</span>
-        </a>
-    </li>
+    <?php if(isset($logged_user)):?>
+        <li class="nav-item">
+            <a class="nav-link menu-link <?= ($controller == 'Requests') ? 'active' : ''?>" href="<?php echo $this->Url->build("/requests")?>" role="button">
+                <i class="ri-shopping-bag-line"></i> <span data-key="t-dashboards">Minhas Compras</span>
+            </a>
+        </li>
 
-
-    <?php if($logged_user['type'] <= \App\Model\Entity\User::$_LAST_ADMIN):?>
-    <li class="nav-item">
-        <a class="nav-link menu-link" href="<?php echo $this->Url->build("/products")?>" role="button">
-            <i class="ri-shield-user-line"></i> <span data-key="t-dashboards">Admin</span>
-        </a>
-    </li>
+        <?php if(isset($logged_user) && $logged_user['type'] <= \App\Model\Entity\User::$_LAST_ADMIN):?>
+            <li class="nav-item">
+                <a class="nav-link menu-link" href="<?php echo $this->Url->build("/products")?>" role="button">
+                    <i class="ri-shield-user-line"></i> <span data-key="t-dashboards">Admin</span>
+                </a>
+            </li>
+        <?php endif;?>
+    <?php else:?>
+        <li class="nav-item">
+            <a class="nav-link menu-link <?= ($controller == 'Users') && $action =='login' ? 'active' : ''?>" href="<?php echo $this->Url->build("/users/login")?>" role="button">
+                <i class="ri-user-line"></i> <span data-key="t-dashboards">Fazer login</span>
+            </a>
+        </li>
     <?php endif;?>
+
 </ul>

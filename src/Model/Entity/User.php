@@ -27,9 +27,41 @@ class User extends Entity
 
     public static $_ROLES = [1 => 'Adm', 5 => 'Costumer'];
 
+    public static $_ROLE_COSTUMER = 5;
+
     public static $_ROLES_COLORS = [1 => 'success', 5 => 'info'];
 
     public static $_LAST_ADMIN = 4;
+
+    public static $_ESTADOS = array(
+        'AC'=>'Acre',
+        'AL'=>'Alagoas',
+        'AP'=>'Amapá',
+        'AM'=>'Amazonas',
+        'BA'=>'Bahia',
+        'CE'=>'Ceará',
+        'DF'=>'Distrito Federal',
+        'ES'=>'Espírito Santo',
+        'GO'=>'Goiás',
+        'MA'=>'Maranhão',
+        'MT'=>'Mato Grosso',
+        'MS'=>'Mato Grosso do Sul',
+        'MG'=>'Minas Gerais',
+        'PA'=>'Pará',
+        'PB'=>'Paraíba',
+        'PR'=>'Paraná',
+        'PE'=>'Pernambuco',
+        'PI'=>'Piauí',
+        'RJ'=>'Rio de Janeiro',
+        'RN'=>'Rio Grande do Norte',
+        'RS'=>'Rio Grande do Sul',
+        'RO'=>'Rondônia',
+        'RR'=>'Roraima',
+        'SC'=>'Santa Catarina',
+        'SP'=>'São Paulo',
+        'SE'=>'Sergipe',
+        'TO'=>'Tocantins'
+    );
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -50,6 +82,12 @@ class User extends Entity
         'deleted' => true,
         'requests' => true,
         'carts' => true,
+        'rua' => true,
+        'numero' => true,
+        'bairro' => true,
+        'cidade' => true,
+        'estado' => true,
+        'cep' => true,
     ];
 
     /**

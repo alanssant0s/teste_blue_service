@@ -73,6 +73,32 @@ class RequestsTable extends Table
             ->notEmptyString('user_id');
 
         $validator
+            ->integer('cep')
+            ->requirePresence('cep', 'create')
+            ->notEmptyString('cep');
+
+        $validator
+            ->requirePresence('rua', 'create')
+            ->notEmptyString('rua');
+
+        $validator
+            ->requirePresence('cidade', 'create')
+            ->notEmptyString('cidade');
+
+        $validator
+            ->requirePresence('numero', 'create')
+            ->notEmptyString('numero');
+
+        $validator
+            ->requirePresence('bairro', 'create')
+            ->notEmptyString('bairro');
+
+        $validator
+            ->requirePresence('estado', 'create')
+            ->notEmptyString('estado');
+
+
+        $validator
             ->numeric('total')
             ->allowEmptyString('total');
 

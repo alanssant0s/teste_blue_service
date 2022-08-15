@@ -90,6 +90,20 @@
                     <!--end card-->
                 </div>
                 <!--end col-->
+                <div class="col-xl-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i> Endereço de Entrega</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled vstack gap-2 fs-13 mb-0">
+                                <li><?= $request->rua?>, <?= $request->numero?></li>
+                                <li><?= $request->bairro?>, <?= $request->cidade?>-<?= $request->cidade?></li>
+                                <li><?= $request->cep?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--end row-->
 

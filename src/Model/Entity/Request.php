@@ -37,5 +37,11 @@ class Request extends Entity
         'deleted' => true,
         'user' => true,
         'request_products' => true,
+        'rua' => true,
+        'numero' => true,
+        'bairro' => true,
+        'cidade' => true,
+        'estado' => true,
+        'cep' => true,
     ];
 }

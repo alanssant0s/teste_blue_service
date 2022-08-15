@@ -91,6 +91,7 @@ class CartsController extends AppController
 //            $this->Carts->Users->Requests->save($request);
 
             $data = $this->request->getData(); //Manipulo o array de dados para criar os objetos de pedidos
+//            debug($data);
             $data['requests'][0]['request_products'] = [];
             $data['requests'][0]['user_id'] = $this->getUserId();
             $data['requests'][0]['total'] = 0;
@@ -102,6 +103,13 @@ class CartsController extends AppController
             }
             unset($data['carts']);//Removo a referencia ao carrinho para evitar inconsistências
             $user = $this->Carts->Users->patchEntity($user, $data, ['associated' => ['Requests.RequestProducts']]);//Utilizo o modelo de usuário para montar os objetos de pedidos
+            $user->requests[0]->rua = $user->rua;
+            $user->requests[0]->numero = $user->numero;
+            $user->requests[0]->cidade = $user->cidade;
+            $user->requests[0]->bairro = $user->bairro;
+            $user->requests[0]->cep = $user->cep;
+            $user->requests[0]->estado = $user->estado;
+//            debug($user);exit;
             if ($this->Carts->Users->save($user)) {
                 $this->Carts->deleteAll(['user_id' => $this->getUserId()]);
                 $this->Flash->success(__('Pedido realizado com sucesso.'));
