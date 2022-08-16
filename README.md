@@ -16,15 +16,19 @@ Teste para vaga de desenvolvedor PHP para empresa Blue Service.
         'default' => [
             'host' => '127.0.0.1',
             'port' => '5432',
-            'username' => 'postgres',
-            'password' => 'root',
-            'database' => 'teste_blue_service',
+            'username' => '[username]',
+            'password' => '[password]]',
+            'database' => '[database_name]',
             'url' => env('DATABASE_URL', null),
         ],
 ...
 ```
 
 6. Utilize o arquivo `base.sql` para povoar o banco com dados de teste. 
+
+```
+psql -U [username] [database_name] < base.pgsql
+```
 
 Com as informações do banco de dados configurada, podemos rodas a aplicação:
 
