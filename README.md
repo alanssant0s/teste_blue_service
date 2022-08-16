@@ -43,3 +43,5 @@ Usuário Master Padrão
 email: admin@mail.com <br>
 senha: 12345678
 
+Site com a demo `https://blue.alanssantos.com/`
+
