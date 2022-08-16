@@ -30,22 +30,6 @@ class FeaturesController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Feature id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $feature = $this->Features->get($id, [
-            'contain' => ['ProductFeatures'],
-        ]);
-
-        $this->set(compact('feature'));
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.

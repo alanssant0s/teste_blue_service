@@ -94,6 +94,8 @@ class ProductsController extends AppController
             $product = $this->Products->patchEntity($product, $data);
 
             if ($this->Products->save($product)) {
+                $this->uploadImagem($data, $product);
+                $this->Products->save($product);
                 $this->Flash->success(__('The product has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -123,24 +125,11 @@ class ProductsController extends AppController
             $data = $this->setProductRelationData($data);
             $product = $this->Products->patchEntity($product, $data);
 
-            if(isset($data['imagem_upload'])) {
-                $file_name = $data['imagem_upload']->getClientFilename();
+            $this->uploadImagem($data, $product);
 
-                if ($file_name) {
-                    if (!is_dir(WWW_ROOT . 'product_images'))
-                        mkdir(WWW_ROOT . 'product_images', 0775);
-
-                    if (!is_dir(WWW_ROOT . 'product_images' . DS . $product->id))
-                        mkdir(WWW_ROOT . 'product_images' . DS . $product->id, 0775);
-
-                    $targetPath = WWW_ROOT . 'product_images' . DS . $product->id . DS . $file_name;
-
-
-                    $data['imagem_upload']->moveTo($targetPath);
-
-
-                    $product->imagem = DS . 'product_images' . DS . $product->id . DS . $file_name;
-                }
+            if(!$product->hasErrors()){
+                $this->Products->ProductCategories->deleteAll(['product_id' => $product->id]);
+                $this->Products->ProductFeatures->deleteAll(['product_id' => $product->id]);
             }
 
             if ($this->Products->save($product)) {
@@ -199,5 +188,32 @@ class ProductsController extends AppController
                     $data['product_features'][] = ['feature_id' => $feature];
         }
         return $data;
+    }
+
+    /**
+     * @param $data
+     * @param $product
+     */
+    private function uploadImagem($data, $product): void
+    {
+        if (isset($data['imagem_upload'])) {
+            $file_name = $data['imagem_upload']->getClientFilename();
+
+            if ($file_name) {
+                if (!is_dir(WWW_ROOT . 'product_images'))
+                    mkdir(WWW_ROOT . 'product_images', 0775);
+
+                if (!is_dir(WWW_ROOT . 'product_images' . DS . $product->id))
+                    mkdir(WWW_ROOT . 'product_images' . DS . $product->id, 0775);
+
+                $targetPath = WWW_ROOT . 'product_images' . DS . $product->id . DS . $file_name;
+
+
+                $data['imagem_upload']->moveTo($targetPath);
+
+
+                $product->imagem = DS . 'product_images' . DS . $product->id . DS . $file_name;
+            }
+        }
     }
 }

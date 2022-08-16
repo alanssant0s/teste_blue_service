@@ -73,4 +73,8 @@ class AppController extends Controller
     protected function getUserId(){
         return $this->getRequest()->getSession()->read('Auth')['id'];
     }
+
+    protected function getUserRoleId(){
+        return $this->getRequest()->getSession()->read('Auth')['role_id'];
+    }
 }

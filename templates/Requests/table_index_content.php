@@ -1,5 +1,9 @@
 <tr>
     <td>#<?= $this->Number->format($model->id) ?></td>
+    <?php if($logged_user['role_id'] <= \App\Model\Entity\User::$_LAST_ADMIN):?>
+        <td><?= $model->user->name ?></td>
+    <?php endif;?>
+    <td><?= $model->created ?></td>
     <td><?= sizeof($model->request_products) ?></td>
     <td><?= number_format($model->total ,2,',', '.')?></td>
     <td class="actions">

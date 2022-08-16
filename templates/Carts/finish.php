@@ -48,6 +48,9 @@
                                                 ]) ?>
                                         </h5>
                                         <ul class="list-inline text-muted mb-1">
+                                            <li class="list-inline-item"><b>Quantidade:</b> <?=$cart->qtd?></li>
+                                        </ul>
+                                        <ul class="list-inline text-muted mb-1">
                                             <li class="list-inline-item"><b>Categorias:</b></li>
                                             <?php foreach ($cart->product->product_categories as $key => $product_category):?>
                                                 <li class="list-inline-item"><?=$product_category->category->name . ($key != array_key_last($cart->product->product_categories)?',':'')?></li>
@@ -60,12 +63,12 @@
                                             <?php endforeach;?>
                                         </ul>
 
-                                        <div class="input-step">
-                                            <button type="button" class="minus">–</button>
+
+                                        <div class="">
                                             <?= $this->Form->hidden("carts.$i.product_id")?>
                                             <?= $this->Form->hidden("carts.$i.price")?>
-                                            <input type="number" name="carts[<?=$i?>][qtd]" class="product-quantity" value="<?=$cart->qtd?>" min="0" max="100">
-                                            <button type="button" class="plus">+</button>
+                                            <?= $this->Form->hidden("carts.$i.qtd")?>
+                                            <?= $this->Form->hidden("carts.$i.total")?>
                                         </div>
                                     </div>
                                     <div class="col-sm-auto">

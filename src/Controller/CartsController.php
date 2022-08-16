@@ -69,7 +69,6 @@ class CartsController extends AppController
             $data['requests'][0]['user_id'] = $this->getUserId();
             $data['requests'][0]['total'] = 0;
             foreach ($data['carts'] as $cart){
-//                $cart['request_id'] = $request->id;
                 $cart['total'] = $cart['qtd'] * $cart['price'];
                 $data['requests'][0]['total']+=$cart['total'];
                 $data['requests'][0]['request_products'][] = $cart;
@@ -102,6 +101,7 @@ class CartsController extends AppController
      */
     public function add($product_id)
     {
+        $result = [];
         $cart = $this->Carts->find()->where(['product_id' => $product_id, 'user_id' => $this->getUserId()])->first();
         if(!$cart) {//Verifico se já existe um desses adicionado ao carrinho do cliente, se não exisistir eu crio;
             $product = $this->Carts->Products->get($product_id);
@@ -116,12 +116,14 @@ class CartsController extends AppController
             $cart->total += $cart->price;
         }
         if ($this->Carts->save($cart)) {
-            $this->Flash->success(__('Produto adicionado ao carrinho.'));
+            $result['message'] = __('Produto adicionado ao carrinho.');
+            $result['status'] = 1;
         }else {
-            $this->Flash->error(__('Erro ao adicionar produto ao carrinho.'));
+            $result['message'] = __('Erro ao adicionar produto ao carrinho.');
+            $result['status'] = 0;
         }
+        echo json_encode($result);
         exit;
-        return $this->redirect( $this->getRequest()->getQuery('redirect', '/'));
     }
 
     /**
@@ -131,29 +133,33 @@ class CartsController extends AppController
      */
     public function remove($product_id, $all = false) // Flag all por padrão é false
     {
+        $result = [];
         $cart = $this->Carts->find()->where(['product_id' => $product_id, 'user_id' => $this->getUserId()])->first();
         if($cart) {
             if($cart->qtd <= 1 || $all == true){
                 if ($this->Carts->delete($cart)) {
-                    echo __('Produto removido do carrinho.');
+                    $result['message'] = __('Produto removido do carrinho.');
+                    $result['status'] = 1;
                 } else {
                     echo __('Erro ao remover item do carrinho');
+                    $result['status'] = 0;
                 }
             } else { //Remove item totalmente do carrinho caso quantidade seja iqual a 1 ou flash de all seja true
                 $cart->qtd--;
                 $cart->total -= $cart->price;
                 if ($this->Carts->save($cart)) {
-                    echo __('Item do produto removido do carrinho.');
+                    $result['message'] = __('Item do produto removido do carrinho.');
+                    $result['status'] = 1;
                 }else {
-                    echo  __('Erro ao remover item do carrinho.');
+                    $result['message'] =  __('Erro ao remover item do carrinho.');
+                    $result['status'] = 0;
                 }
             }
         }else{
-            echo __('Esse produto não está no carrinho!');
+            $result['message'] = __('Esse produto não está no carrinho!');
+            $result['status'] = 0;
         }
-
+        echo json_encode($result);
         exit;
-
-        return $this->redirect( $this->getRequest()->getQuery('redirect', '/'));
     }
 }

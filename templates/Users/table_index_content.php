@@ -9,14 +9,6 @@
     <td class="actions">
         <ul class="list-inline hstack gap-2 mb-0">
             <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Editar">
-                <?= $this->Html->link(__('<i class="ri-eye-fill fs-16"></i>'),
-                    ['action' => 'view', $model->id],
-                    [
-                        'class' => 'text-primary d-inline-block edit-item-btn',
-                        'escape' => false
-                    ]) ?>
-            </li>
-            <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Editar">
                 <?= $this->Html->link(__('<i class="ri-pencil-fill fs-16"></i>'),
                     ['action' => 'edit', $model->id],
                     [

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use App\Model\Entity\User;
 
 /**
  * Requests Controller
@@ -18,11 +19,18 @@ class RequestsController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->setLayout('ecommerce');
+        $requests = $this->Requests->find();
+        if($this->getUserRoleId() > User::$_LAST_ADMIN) {
+            $this->viewBuilder()->setLayout('ecommerce');
+            $requests = $requests->where(['user_id' => $this->getUserId()]);
+        }
+        else
+            $requests = $requests->contain(['Users']);
+
         $this->paginate = [
             'contain' => ['RequestProducts'],
         ];
-        $requests = $this->paginate($this->Requests->find()->where(['user_id' => $this->getUserId()]));
+        $requests = $this->paginate($requests);
 
         $this->set(compact('requests'));
     }
@@ -36,9 +44,10 @@ class RequestsController extends AppController
      */
     public function view($id = null)
     {
-        $this->viewBuilder()->setLayout('ecommerce');
+        if($this->getUserRoleId() > User::$_LAST_ADMIN)
+            $this->viewBuilder()->setLayout('ecommerce');
         $request = $this->Requests->get($id, [
-            'contain' => ['RequestProducts.Products.ProductCategories.Categories', 'RequestProducts.Products.ProductFeatures.Features'],
+            'contain' => ['RequestProducts.Products.ProductCategories.Categories', 'RequestProducts.Products.ProductFeatures.Features', 'Users'],
         ]);
 
         $this->set(compact('request'));
