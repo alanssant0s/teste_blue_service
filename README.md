@@ -7,7 +7,7 @@ Teste para vaga de desenvolvedor PHP para empresa Blue Service.
 1. Rode GIT CLONE `git clone git@github.com:alanssant0s/teste_blue_service.git` 
 2. Baixe o [Composer](https://getcomposer.org/doc/00-intro.md) ou atualize com `composer self-update`.
 3. Entre dentro da pasta do projeto, caso seja a padrão `cd teste_blue_service`
-4. Run `composer update`.
+4. Run `composer install`.
 5. Edite o arquivo `config/app_local.php` na seção de Datasources e adicione as informações do servidor.
 
 ```
@@ -24,7 +24,7 @@ Teste para vaga de desenvolvedor PHP para empresa Blue Service.
 ...
 ```
 
-6. Utilize o arquivo `base.sql` para povoar o banco com dados de teste. 
+6. Utilize o arquivo `base.pgsql` para povoar o banco com dados de teste. 
 
 ```
 psql -U [username] [database_name] < base.pgsql

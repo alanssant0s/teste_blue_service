@@ -16,7 +16,7 @@ $action = View::getRequest()->getAttribute('params')['action'];
     </li>
 
     <li class="nav-item">
-        <a class="nav-link menu-link <?= ($controller == 'Products') ? 'active' : ''?>" href="<?php echo $this->Url->build("/requests")?>" role="button">
+        <a class="nav-link menu-link <?= ($controller == 'Requests') ? 'active' : ''?>" href="<?php echo $this->Url->build("/requests")?>" role="button">
             <i class="ri-shopping-bag-line"></i> <span data-key="t-products">Pedidos</span>
         </a>
     </li>

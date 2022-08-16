@@ -67,7 +67,20 @@
                                             'class' => 'btn btn-primary',
                                             'escape' => false
                                         ]) ?>
-                                    <button onclick="addToCart(<?=$product->id?>,'<?=$product->name?>','<?=$product->imagem?>',1,<?=$product->price?>, 'products/home/')" class="btn btn-success mt-2"><i class=" ri-shopping-cart-2-fill align-bottom me-1"></i> Adicionar ao Carrinho</button>
+                                    <?php if (isset($logged_user)):?>
+                                        <button onclick="addToCart(<?=$product->id?>,'<?=$product->name?>','<?=$product->imagem?>',1,<?=$product->price?>, 'products/home/')" class="btn btn-success mt-2"><i class="ri-shopping-cart-2-fill align-bottom me-1"></i> Adicionar ao Carrinho</button>
+                                    <?php else:?>
+                                        <?= $this->Html->link(__('<i class="ri-shopping-cart-2-fill align-bottom me-1"></i> Adicionar ao Carrinho'),
+                                            [
+                                                    'controller' => 'users',
+                                                    'action' => 'login',
+                                                '?' => ['redirect' => 'products/home']
+                                            ],
+                                            [
+                                                'class' => 'btn btn-success mt-2',
+                                                'escape' => false
+                                            ]) ?>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <div class="card-body">
