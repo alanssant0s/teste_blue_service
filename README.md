@@ -1,53 +1,41 @@
-# CakePHP Application Skeleton
+# SYS Ecommerce
 
-![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%207-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
-
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 4.x.
-
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+Teste para vaga de desenvolvedor PHP para empresa Blue Service.
 
 ## Installation
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+1. Rode GIT CLONE `git clone git@github.com:alanssant0s/teste_blue_service.git` 
+2. Baixe o [Composer](https://getcomposer.org/doc/00-intro.md) ou atualize com `composer self-update`.
+3. Entre dentro da pasta do projeto, caso seja a padrão `cd teste_blue_service`
+4. Run `composer update`.
+5. Edite o arquivo `config/app_local.php` na seção de Datasources e adicione as informações do servidor.
 
-If Composer is installed globally, run
-
-```bash
-composer create-project --prefer-dist cakephp/app
+```
+...
+'Datasources' => [
+        'default' => [
+            'host' => '127.0.0.1',
+            'port' => '5432',
+            'username' => 'postgres',
+            'password' => 'root',
+            'database' => 'teste_blue_service',
+            'url' => env('DATABASE_URL', null),
+        ],
+...
 ```
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+6. Utilize o arquivo `base.sql` para povoar o banco com dados de teste. 
 
-```bash
-composer create-project --prefer-dist cakephp/app myapp
-```
-
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+Com as informações do banco de dados configurada, podemos rodas a aplicação:
 
 ```bash
 bin/cake server -p 8765
 ```
 
-Then visit `http://localhost:8765` to see the welcome page.
+Agora visite a aplicação pelo link `http://localhost:8765`.
 
-## Update
+Usuário Master Padrão
 
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
+email: admin@mail.com <br>
+senha: 12345678
 
-## Configuration
-
-Read and edit the environment specific `config/app_local.php` and setup the 
-`'Datasources'` and any other configuration relevant for your application.
-Other environment agnostic settings can be changed in `config/app.php`.
-
-## Layout
-
-The app skeleton uses [Milligram](https://milligram.io/) (v1.3) minimalist CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
